@@ -3,7 +3,7 @@
 
 import { OrbitControls, ScrollControls, Sky, Stars, StatsGl } from "@react-three/drei";
 import { Canvas } from '@react-three/fiber';
-import { Suspense, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { Overlay } from "./portfolio/Overlay";
 import Loader from "./portfolio/Loader";
 // import MyBG from "./portfolio/MyBG";
@@ -15,18 +15,24 @@ export default function App() {
   const [isShowStats, setIsShowStats] = useState<boolean>(false);
   const [isZooming, setIsZooming] = useState<boolean>(false);
 
+  useEffect(() => {
+    const divTouch = document.querySelector('canvas')?.nextElementSibling as HTMLElement;
+    !isControlling && divTouch && divTouch.style.removeProperty('touch-action');
+    console.log(!isControlling, divTouch);
+  }, [isControlling])
+
   return (
     <>
       <Canvas shadows camera={{ position: [0, 0, 8], zoom: 2 }} >
         {isShowStats && <StatsGl />}
         <Suspense fallback={<Loader />}>
           <ambientLight intensity={1} />
-          {isControlling && <OrbitControls enableZoom={isZooming} autoRotate />}
           <Stars radius={30} depth={50} count={1000} factor={4} saturation={1} fade speed={.3} />
           <ScrollControls pages={5} damping={0.12}>
             <Overlay />
             {/* <Overlay /> */}
             {/* <MyBG /> */}
+            {isControlling && <OrbitControls enableZoom={isZooming} autoRotate />}
             <Bg />
             <Sky sunPosition={[100, 20, 100]} distance={99999999} />
           </ScrollControls>
