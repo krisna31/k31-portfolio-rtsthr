@@ -6,6 +6,7 @@
   "repository": {
     "url": "git+https://github.com/krisna31/k31-portfolio-rtsthr.git"
   },
+  "homepage": "https://krisna31.github.io/k31-portfolio-rtsthr",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
