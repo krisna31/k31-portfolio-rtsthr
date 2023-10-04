@@ -18,7 +18,6 @@ export default function App() {
   useEffect(() => {
     const divTouch = document.querySelector('canvas')?.nextElementSibling as HTMLElement;
     !isControlling && divTouch && divTouch.style.removeProperty('touch-action');
-    console.log(!isControlling, divTouch);
   }, [isControlling])
 
   return (
